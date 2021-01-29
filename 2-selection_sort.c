@@ -7,26 +7,23 @@
 */
 void selection_sort(int *array, size_t size)
 {
-    size_t idx = 0, passes = 0;
-    int small = 0, small_idx = 0, hold = 0;
+	size_t idx = 0, passes = 0;
+	int small_idx = 0, hold = 0;
 
-    for (passes = 0; passes < size - 1; passes++)
-    {
-        small = array[passes];
-        for (idx = passes; idx < size; idx++)
-        {
-            if (array[idx] < small)
-            {
-                small = array[idx];
-                small_idx = idx;
-            }
-        }
-        if (array[passes] != small)
-        {
-            hold = array[passes];
-            array[passes] = small;
-            array[small_idx] = hold;
-            print_array(array, size);
-        }
-    }
+	for (passes = 0; passes < size - 1; passes++)
+	{
+		small_idx = passes;
+		for (idx = passes; idx < size; idx++)
+		{
+			if (array[idx] < array[small_idx])
+				small_idx = idx;
+		}
+		if (array[passes] != array[small_idx])
+		{
+			hold = array[passes];
+			array[passes] = array[small_idx];
+			array[small_idx] = hold;
+			print_array(array, size);
+		}
+	}
 }
