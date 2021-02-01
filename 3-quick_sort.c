@@ -13,7 +13,7 @@
 int partition(int *arr, int lo, int hi, size_t size)
 {
 	int i, j, temp, pivot;
-	
+
 	pivot = arr[hi];
 	i = lo - 1;
 	for (j = lo; j <= hi - 1; j++)
@@ -41,7 +41,7 @@ int partition(int *arr, int lo, int hi, size_t size)
  * @arr: input array
  * @lo: begning of array
  * @hi: end of array
- * @size: size of array for printing
+ * @size: size of array for passing into partition
  * Return: void
  */
 void sort(int *arr, int lo, int hi, size_t size)
