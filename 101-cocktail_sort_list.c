@@ -24,6 +24,44 @@ void swap_nodes(listint_t **head, listint_t *swap1, listint_t *swap2)
 	print_list(*head);
 }
 /**
+ * sort_forward -
+ */
+int sort_forward(listint_t **list, listint_t *temp_head)
+{
+    int swap = 0;
+
+    while (temp_head != NULL)
+		{
+			if (temp_head->next != NULL && temp_head->n > temp_head->next->n)
+			{
+				swap_nodes(&*list, temp_head, temp_head->next);
+				temp_head = temp_head->prev;
+				swap++;
+			}
+			temp_head = temp_head->next;
+		}
+    return (swap);
+}
+/**
+ * sort_backward -
+ */
+int sort_backward(listint_t **list, listint_t *temp_head)
+{
+    int swap = 0;
+
+    while (temp_head != NULL)
+		{
+			if (temp_head->prev != NULL && temp_head->n < temp_head->prev->n)
+			{
+				swap_nodes(&*list, temp_head->prev, temp_head);
+				swap++;
+				temp_head = temp_head->next;
+			}
+			temp_head = temp_head->prev;
+		}
+    return (swap);
+}
+/**
 * cocktail_sort_list - sorts an array of integers in ascending
 * order backwards and forwards
 * order using the cocktail sort algorithm
@@ -51,31 +89,12 @@ void cocktail_sort_list(listint_t **list)
 		}
 		temp_head = start_head;
 		sorted = 0;
-		while (temp_head != NULL)
-		{
-			if (temp_head->next != NULL && temp_head->n > temp_head->next->n)
-			{
-				swap_nodes(&*list, temp_head, temp_head->next);
-				temp_head = temp_head->prev;
-				sorted++;
-			}
-			temp_head = temp_head->next;
-		}
-
+        sorted = sort_forward(&*list, temp_head);
 		if (sorted == 0)
 			break;
 		sorted = 0;
 		temp_head = end_head;
-		while (temp_head != NULL)
-		{
-			if (temp_head->prev != NULL && temp_head->n < temp_head->prev->n)
-			{
-				swap_nodes(&*list, temp_head->prev, temp_head);
-				sorted++;
-				temp_head = temp_head->next;
-			}
-			temp_head = temp_head->prev;
-		}
+        sorted = sort_backward(&*list, temp_head);
 		count++;
 	}
 }
